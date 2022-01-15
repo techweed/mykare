@@ -1,9 +1,36 @@
-.home-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  background: #0d1117;
-  color: aliceblue;
+$lfs-blue: #006ac6;
+$lfs-yellow: #fab700;
+$lfs-grey: #75787b;
+
+.table-latitude {
+  width: 100%;
+  thead {
+    border-top: 2px solid $lfs-yellow;
+    border-bottom: 2px solid $lfs-yellow;
+    th {
+      text-transform: uppercase;
+      padding: 10px;
+      color: $lfs-blue;
+      border: 1px solid #f1f1f1;
+    }
+  }
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f1f1;
+      color: $lfs-grey;
+      td {
+        padding: 10px;
+        border: 1px solid #f1f1f1;
+      }
+      th {
+        padding-left: 10px;
+        border: 1px solid #f1f1f1;
+      }
+    }
+  }
+}
+.float-btn {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
 }

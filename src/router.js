@@ -5,7 +5,6 @@ import AppSpinner from "./components/spinner";
 import Login from "./pages/login";
 
 const AppRouter = () => {
-  var isLoggedIn = localStorage.getItem("isLoggedIn");
   return (
     <BrowserRouter>
       <Routes>
@@ -17,7 +16,7 @@ const AppRouter = () => {
             path={path}
             element={
               <Suspense fallback={<AppSpinner />}>
-                {isLoggedIn ? <Component /> : <Navigate to="/" />}
+                <Component />
               </Suspense>
             }
           />

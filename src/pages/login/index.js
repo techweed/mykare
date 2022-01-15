@@ -1,13 +1,53 @@
 import React, {useState} from "react";
 import {Form, Button} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 import "./login.scss";
 
 const Login = () => {
   const [cred, setCred] = useState({});
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(true);
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  let navigate = useNavigate();
 
-  const onLogin = (cred) => {
-    console.log(cred);
+  const onLogin = () => {
+    if (cred.username && cred.password) {
+      let res = checkIfUserExist(cred.username);
+      if (
+        (res && res?.password === cred.password) ||
+        (cred.username === "admin" && cred.password === "admin")
+      ) {
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/home", {
+          state: {
+            username: cred.username,
+          },
+        });
+      } else {
+        alert("Invalid credentials");
+      }
+    }
+    setCred({username: "", password: ""});
+  };
+  const onRegister = () => {
+    if (cred.username !== "admin") {
+      if (cred.password === cred.confirmPassword) {
+        if (checkIfUserExist(cred.username)) {
+          alert("Username already registered");
+        } else {
+          users.push({username: cred.username, password: cred.password});
+          localStorage.setItem("users", JSON.stringify(users));
+          setIsAlreadyRegistered(true);
+        }
+      } else {
+        alert("Passwords do not match");
+      }
+    } else {
+      alert("Cannot use that name");
+    }
+    setCred({username: "", password: "", confirmPassword: ""});
+  };
+  const checkIfUserExist = (username) => {
+    return users.find((item) => item.username === username);
   };
   const onInputChanged = (e) => {
     const {name, value} = e.target;
@@ -21,6 +61,10 @@ const Login = () => {
         tempCred.password = value;
         break;
       }
+      case "confirm-password": {
+        tempCred.confirmPassword = value;
+        break;
+      }
       default: {
         break;
       }
@@ -30,7 +74,7 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-wrapper">
-        <Form>
+        <Form autoComplete="off">
           <Form.Control
             className="mb-3"
             placeholder="Username"
@@ -65,8 +109,9 @@ const Login = () => {
           <Button
             className="w-100"
             variant="primary"
+            disabled={!(cred.username && cred.password)}
             onClick={() => {
-              onLogin(cred);
+              isAlreadyRegistered ? onLogin() : onRegister();
             }}
           >
             {isAlreadyRegistered ? "Login" : "Register"}
