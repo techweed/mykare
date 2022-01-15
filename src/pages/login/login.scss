@@ -1,0 +1,33 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #0d1117;
+  padding: 15px;
+  .login-wrapper {
+    max-width: 400px;
+    width: 100%;
+    background: #161b22;
+    border-radius: 6px;
+    border: 1px solid rgba(#161b22, 0.5);
+    padding: 30px;
+    color: #fff;
+    .form-control {
+      background: #0d1117;
+      color: #fff;
+      border: 1px solid rgba(#161b22, 0.5);
+    }
+  }
+}
+.text-right {
+  text-align: right;
+  font-size: 0.75em;
+  padding-top: 10px;
+  color: grey;
+  &:hover {
+    color: aqua;
+    cursor: pointer;
+  }
+}
