@@ -8,7 +8,7 @@ const Login = () => {
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(true);
   const users = JSON.parse(localStorage.getItem("users")) || [];
   let navigate = useNavigate();
-
+  // login btn click
   const onLogin = () => {
     if (cred.username && cred.password) {
       let res = checkIfUserExist(cred.username);
@@ -28,6 +28,7 @@ const Login = () => {
     }
     setCred({username: "", password: ""});
   };
+  // signup btn click
   const onRegister = () => {
     if (cred.username !== "admin") {
       if (cred.password === cred.confirmPassword) {
@@ -46,9 +47,11 @@ const Login = () => {
     }
     setCred({username: "", password: "", confirmPassword: ""});
   };
+  //helper functio to check if user exists or not
   const checkIfUserExist = (username) => {
     return users.find((item) => item.username === username);
   };
+  // controlled component - handling user input
   const onInputChanged = (e) => {
     const {name, value} = e.target;
     let tempCred = cred;
@@ -71,6 +74,7 @@ const Login = () => {
     }
     setCred({...tempCred});
   };
+
   return (
     <div className="login-page">
       <div className="login-wrapper">
